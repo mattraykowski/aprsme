@@ -14,13 +14,18 @@ defmodule AprsmeWeb.Router do
   end
 
   scope "/", AprsmeWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser]
 
     get "/", PageController, :index
+
+    # login required
+    scope "/" do
+      get "/map", MapController, :index
+
+      # resources "/packets", PacketController, only: [:index, :show]
+      # resources "/call", CallController, only: [:show]
+      get "/faq", PageController, :faq
+    end
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", AprsmeWeb do
-  #   pipe_through :api
-  # end
 end
