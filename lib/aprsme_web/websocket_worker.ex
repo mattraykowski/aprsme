@@ -1,4 +1,5 @@
-defmodule Aprsme.WebsocketWorker do
+defmodule AprsmeWeb.WebsocketWorker do
+
   @queue_name "aprs:messages"
   @source_exchange_name "aprs:messages"
 
@@ -37,7 +38,7 @@ defmodule Aprsme.WebsocketWorker do
 
   # change to handle_info
   def handle_info({:basic_deliver, payload, _meta}, state) do
-    AprsWeb.Endpoint.broadcast!("aprs:messages", "aprs:position", %{payload: payload})
+    AprsmeWeb.Endpoint.broadcast!("aprs:messages", "aprs:position", %{payload: payload})
 
     {:noreply, state}
   end

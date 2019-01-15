@@ -33,16 +33,21 @@ defmodule Aprsme.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.4"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, "~> 1.4.0"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      # new deps here
+      {:plug_cowboy, "~> 2.0"},
+      # non-phoenix deps added after here..
+      {:poison, ">= 0.0.0"},
       {:amqp, "~> 1.1"},
+      {:timex, "~> 3.4"},
+      {:geo, "~> 3.0"},
+      {:geo_postgis, "~> 3.0"}
     ]
   end
 
@@ -56,6 +61,8 @@ defmodule Aprsme.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.migrate": ["ecto.migrate", "ecto.dump"],
+      "ecto.rollback": ["ecto.rollback", "ecto.dump"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
