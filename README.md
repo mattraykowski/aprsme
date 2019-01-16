@@ -5,6 +5,9 @@
 ## NEW: Use RabbitMQ and aprs_slurp with docker-compose:
     $ docker-compose up
 
+You can then view the RabbitMQ admin at http://localhost:15672/
+The default bitnami username and password are in docker-compose.yml
+
 ## OLD: (rabbitMQ and aprs_slurp run locally)
 
     $ brew install rabbitmq
