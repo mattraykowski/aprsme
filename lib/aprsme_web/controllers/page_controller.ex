@@ -6,13 +6,14 @@ defmodule AprsmeWeb.PageController do
 
     case user do
       nil ->
-        render conn, "index.html"
+        render(conn, "index.html")
+
       _ ->
         conn |> redirect(to: map_path(conn, :index))
     end
   end
 
   def faq(conn, _params) do
-    render conn, "faq.html"
+    render(conn, "faq.html")
   end
 end

@@ -3,7 +3,7 @@ defmodule Aprsme.ArchiveWorker do
   @source_exchange_name "aprs:messages"
 
   use GenServer
-  require Poison
+  require Jason
   require Logger
 
   alias Aprsme.Repo
@@ -14,7 +14,7 @@ defmodule Aprsme.ArchiveWorker do
   end
 
   def init(state \\ []) do
-    IO.puts "#{__MODULE__}: init()"
+    IO.puts("#{__MODULE__}: init()")
     {:ok, connection} = AMQP.Connection.open(rabbitmq_url())
     {:ok, channel} = AMQP.Channel.open(connection)
 
@@ -33,7 +33,7 @@ defmodule Aprsme.ArchiveWorker do
   end
 
   def handle_info({:basic_deliver, payload, _meta}, state) do
-    case Poison.decode(payload) do
+    case Jason.decode(payload) do
       {:ok, packet_params} ->
         packet_params = add_point_to_packet(packet_params)
         changeset = %Packet{} |> Packet.changeset(packet_params)

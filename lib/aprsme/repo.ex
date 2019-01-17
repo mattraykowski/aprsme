@@ -15,7 +15,6 @@ defmodule Aprsme.Repo do
     {:ok, Keyword.put(opts, :url, System.get_env("DATABASE_URL"))}
   end
 
-
   def purge_old_packets! do
     purge_count = Application.fetch_env!(:aprs_web, :purge_packet_count)
     purge_interval = Application.fetch_env!(:aprs_web, :purge_packet_interval)

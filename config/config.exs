@@ -9,13 +9,14 @@ use Mix.Config
 config :aprsme,
   ecto_repos: [Aprsme.Repo]
 
+config :phoenix, :json_library, Jason
+
 # Configures the endpoint
 config :aprsme, AprsmeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "+mzul2LNGjl88vOYqnxPa/wkFwfeHa1PNGcj3j1GPqDa2Kajf/RFdQpG1g4RMHkF",
   render_errors: [view: AprsmeWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Aprsme.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Aprsme.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -25,9 +26,8 @@ config :logger, :console,
 config :aprsme,
   rabbitmq_url: System.get_env("RABBITMQ_URL") || "amqp://user:bitnami@127.0.0.1:5672/aprs"
 
-config :aprsme, Aprsme.Repo,
-  types: Aprsme.PostgresTypes
+config :aprsme, Aprsme.Repo, types: Aprsme.PostgresTypes
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

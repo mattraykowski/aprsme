@@ -2,10 +2,10 @@ defmodule AprsmeWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "aprs:*", AprsmeWeb.AprsChannel
+  channel("aprs:*", AprsmeWeb.AprsChannel)
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport(:websocket, Phoenix.Transports.WebSocket)
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
