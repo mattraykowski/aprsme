@@ -232,8 +232,10 @@ if ($('#map').length !== 1) {
       var self = this;
       console.log("APRS.init()");
 
+      console.log("connecting socket")
       socket.connect();
       let channel = socket.channel("aprs:messages");
+      console.log("opening channel")
 
       channel.on("*", (event) => {
         console.warn("Uncaught event: ", event);
@@ -241,6 +243,7 @@ if ($('#map').length !== 1) {
 
       // handle incoming APRS packets
       channel.on("aprs:position", (data) => {
+        console.log("aprs:position", data)
         let pkt = new Packet(JSON.parse(data.payload));
 
         if (pkt.hasPosition()) {
@@ -287,6 +290,7 @@ if ($('#map').length !== 1) {
 
       });
 
+      console.log("About to join() channel");
       channel.join()
         .receive("ok", (resp) => {
           console.log("Joined aprs:messages, sending map bounds", resp);

@@ -2,7 +2,7 @@ defmodule AprsmeWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "aprs:*", AprsWeb.AprsChannel
+  channel "aprs:*", AprsmeWeb.AprsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
