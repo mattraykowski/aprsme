@@ -12,9 +12,8 @@ defmodule Aprsme.Application do
       supervisor(Aprsme.Repo, []),
       # Start the endpoint when the application starts
       supervisor(AprsmeWeb.Endpoint, []),
-
       worker(Aprsme.WebsocketWorker, []),
-      worker(Aprsme.ArchiveWorker, []),
+      worker(Aprsme.ArchiveWorker, [])
       # Start your own worker by calling: Aprsme.Worker.start_link(arg1, arg2, arg3)
       # worker(Aprsme.Worker, [arg1, arg2, arg3]),
     ]
