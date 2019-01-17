@@ -1,5 +1,4 @@
 defmodule Aprsme.WebsocketWorker do
-
   @queue_name "aprs:messages"
   @source_exchange_name "aprs:messages"
 
