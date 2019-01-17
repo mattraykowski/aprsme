@@ -19,8 +19,8 @@ config :aprsme, AprsmeWeb.Endpoint,
 
 # Configures Elixir's Logger
 config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:user_id]
+  format: "[$time] $metadata[$level]$levelpad$message",
+  metadata: [:all]
 
 config :aprsme,
   rabbitmq_url: System.get_env("RABBITMQ_URL") || "amqp://user:bitnami@127.0.0.1:5672/aprs"
