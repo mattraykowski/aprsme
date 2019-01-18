@@ -7,7 +7,7 @@ git:
 language: elixir
 
 elixir: '1.8.0'
-otp_release: '21.0'
+otp_release: '21.2.2'
 
 services:
   - postgresql
