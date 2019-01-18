@@ -41,23 +41,6 @@ defmodule Aprsme.WebsocketWorker do
       {:noreply, state}
     end
 
-    # log("Opening channel")
-    # {:ok, channel} = AMQP.Channel.open(connection)
-
-    # log("Declaring exchange...")
-
-    # log("Declaring queue #{@queue_name}")
-    # {:ok, _queue} = AMQP.Queue.declare(channel, @queue_name, durable: false)
-
-    # log("Binding #{@queue_name} to source #{@source_exchange_name}")
-    # :ok = AMQP.Queue.bind(channel, @queue_name, @source_exchange_name, routing_key: "#")
-
-    # log("basic.consume...")
-    # AMQP.Basic.consume(channel, @queue_name, nil, no_ack: true)
-
-    # log("waiting for messages")
-
-    # {:ok, state}
   end
 
   # change to handle_info
