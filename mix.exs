@@ -47,7 +47,8 @@ defmodule Aprsme.Mixfile do
       {:amqp, "~> 1.1"},
       {:timex, "~> 3.4"},
       {:geo, "~> 3.0"},
-      {:geo_postgis, "~> 3.0"}
+      {:geo_postgis, "~> 3.0"},
+      {:aprs, github: "Matt-Hornsby/aprsEx"}
     ]
   end
 
