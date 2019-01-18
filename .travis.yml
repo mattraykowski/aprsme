@@ -22,7 +22,8 @@ addons:
 
 before_script:
   - psql -U travis -c "create extension postgis"
-  - psql -U travis -c "create database aprsme_test"
+  - cp config/travis.exs config/test.exs
+  - mix do ecto.create, ecto.migrate
 
 env:
   global:
