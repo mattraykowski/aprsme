@@ -7,4 +7,4 @@ git:
 language: elixir
 
 elixir: '1.8.0'
-otp_release: '21'
+otp_release: '21.0'
