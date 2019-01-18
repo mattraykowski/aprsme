@@ -8,14 +8,17 @@ defmodule Aprsme.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
-      supervisor(Aprsme.Repo, []),
-      # Start the endpoint when the application starts
-      supervisor(AprsmeWeb.Endpoint, []),
-      worker(Aprsme.WebsocketWorker, []),
-      worker(Aprsme.ArchiveWorker, [])
       # Start your own worker by calling: Aprsme.Worker.start_link(arg1, arg2, arg3)
       # worker(Aprsme.Worker, [arg1, arg2, arg3]),
+
+      # Start the Ecto repository
+      supervisor(Aprsme.Repo, []),
+
+      # Start the endpoint when the application starts
+      supervisor(AprsmeWeb.Endpoint, []),
+
+      # Supervision tree for incoming packets from RabbitMQ
+      supervisor(Aprsme.IncomingPacketSupervisor, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
