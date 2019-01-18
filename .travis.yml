@@ -24,4 +24,9 @@ before_script:
   - psql -U postgres -c "create extension postgis"
   - psql -U postgres -c "create database aprsme_test"
 
+env:
+  global:
+    - PGUSER=travis
+    - PGHOST=""
+    - PGPORT=5433
 
