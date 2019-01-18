@@ -27,6 +27,7 @@ before_script:
 
 env:
   global:
+    - MIX_ENV=test
     - PGUSER=travis
     - PGHOST=""
     - PGPORT=5433
