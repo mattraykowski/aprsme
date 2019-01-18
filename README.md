@@ -1,5 +1,7 @@
 # aprs_web
 
+[![Build Status](https://travis-ci.org/aprsme/aprsme.svg?branch=master)](https://travis-ci.org/aprsme/aprsme)
+
 # Configuration
 
 ## NEW: Use RabbitMQ and aprs_slurp with docker-compose:
