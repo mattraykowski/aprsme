@@ -21,8 +21,8 @@ addons:
       - postgresql-client-10
 
 before_script:
-  - psql -U postgres -c "create extension postgis"
-  - psql -U postgres -c "create database aprsme_test"
+  - psql -U travis -c "create extension postgis"
+  - psql -U travis -c "create database aprsme_test"
 
 env:
   global:
