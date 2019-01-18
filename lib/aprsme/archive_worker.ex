@@ -9,12 +9,20 @@ defmodule Aprsme.ArchiveWorker do
   alias Aprsme.Repo
   alias Aprsme.Aprs.Packet
 
+  # API
   def start_link(args \\ []) do
-    GenServer.start_link(__MODULE__, [], args)
+    GenServer.start_link(__MODULE__, [], name: :archive_worker)
   end
 
+  # Callbacks
+
   def init(state \\ []) do
-    IO.puts("#{__MODULE__}: init()")
+    Process.send_after(self(), :connect, 5000)
+    {:ok, state}
+  end
+
+  def handle_info(:connect, state) do
+    Logger.info("#{__MODULE__}: Attempting to connect to RabbitMQ")
     {:ok, connection} = AMQP.Connection.open(rabbitmq_url())
     {:ok, channel} = AMQP.Channel.open(connection)
 
@@ -29,7 +37,7 @@ defmodule Aprsme.ArchiveWorker do
 
     log("Wait_for_messages")
 
-    {:ok, state}
+    {:noreply, state}
   end
 
   def handle_info({:basic_deliver, payload, _meta}, state) do

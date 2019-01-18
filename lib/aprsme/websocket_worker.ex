@@ -7,11 +7,16 @@ defmodule Aprsme.WebsocketWorker do
 
   def start_link(args \\ []) do
     IO.puts("#{__MODULE__}.start_link()")
-    GenServer.start_link(__MODULE__, [], args)
+    GenServer.start_link(__MODULE__, [], name: :websocket_worker)
   end
 
   def init(state \\ []) do
-    IO.puts("#{__MODULE__}.init()")
+    Process.send_after(self(), :connect, 5000)
+    {:ok, state}
+  end
+
+  def handle_info(:connect, state) do
+    IO.puts("#{__MODULE__}:: Attempting to connect to RabbitMQ")
 
     log("rabbitmq_url: #{rabbitmq_url()}")
 
@@ -31,28 +36,11 @@ defmodule Aprsme.WebsocketWorker do
       log("basic.consume...")
       AMQP.Basic.consume(channel, @queue_name, nil, no_ack: true)
 
-      log("waiting for messages")
+      log("#{__MODULE__}: Waiting for messages")
 
-      {:ok, state}
+      {:noreply, state}
     end
 
-    # log("Opening channel")
-    # {:ok, channel} = AMQP.Channel.open(connection)
-
-    # log("Declaring exchange...")
-
-    # log("Declaring queue #{@queue_name}")
-    # {:ok, _queue} = AMQP.Queue.declare(channel, @queue_name, durable: false)
-
-    # log("Binding #{@queue_name} to source #{@source_exchange_name}")
-    # :ok = AMQP.Queue.bind(channel, @queue_name, @source_exchange_name, routing_key: "#")
-
-    # log("basic.consume...")
-    # AMQP.Basic.consume(channel, @queue_name, nil, no_ack: true)
-
-    # log("waiting for messages")
-
-    # {:ok, state}
   end
 
   # change to handle_info
