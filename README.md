@@ -1,4 +1,4 @@
-# aprs_web
+# APRSme
 
 [![Build Status](https://travis-ci.org/aprsme/aprsme.svg?branch=master)](https://travis-ci.org/aprsme/aprsme)
 
