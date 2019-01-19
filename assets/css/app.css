@@ -1,1 +1,87 @@
 /* This file is for your main application css. */
+
+#nav .dropdown .menu {
+  z-index: 999999;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+/* this wraps the entire divmarker on the map */
+.aprs-map-symbol-wrapper {
+  width: 10rem;
+}
+
+.aprs-symbol {
+  font-size: 18pt;
+  display: inline;
+  float: left;
+}
+
+.aprs-symbol.aprs-icon-symbol {
+  background-size: 384px 374px;
+}
+
+.aprs-icon-symbol {
+  /* background-color: red; */
+  height: 22px;
+  width: 24px;
+}
+
+.aprs-icon-symbol.map {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -4px -4px 0 0;
+  background-size: 384px 374px;
+}
+
+.aprs-marker-callsign {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  border-radius: 3px;
+}
+
+.aprs-icon-callsign {
+  text-transform: uppercase;
+  color: #eee;
+  font-weight: bold;
+  text-align: left;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+/*.AC,.BC,.AT,.PG,.Q3,.SZ,.BN,.AO,.OG,.P3,.AY,.PR,.SH,.P5,.LC,.SV,.MT,.PV,.NV,.PW,.LR,.BP,.BE,.LW,.NX,.P1,.PJ,.SA,.AJ,.AA,.LS,.LQ,.PT,.OL,.BF,.LG,.AM,.AH,.NT,.PQ,.LO,.SR,.HS,.ON,.PB,.PL,.LM,.AE,.LE,.SU,.P8,.LA,.SQ,.PH,.A1,.SJ,.NR,.LL,.AD,.MR,.SE,.AZ,.HX,.AF,.OO,.BJ,.AX,.A3,.OM,.LK,.OE,.DX,.LV,.PO,.DV,.OJ,.LB,.LH,.MV,.LU,.A6,.OI,.PN,.DS,.BH,.A4,.AR,.SN,.AW,.MX,.LX,.SB,.A9,.PS,.HU,.SX,.P2,.BB,.HV,.OB,.HT,.P9,.PA,.SS,.LJ,.P7,.PC,.LP,.OF,.OD,.SW,.SF,.J1,.BL,.LF,.P4,.AB,.DU,.BO,.ST,.AU,.AL,.PU,.NS,.HW,.P0,.P6,.PX,.BI,.LZ,.AG,.SI,.AP,.NW,.AI,.PP,.AQ,.AN,.SM,.J3,.AK,.SC,.MS,.OK,.A2,.PD,.A8,.LD,.SD,.OH,.BG,.PY,.MU,.LI,.OP,.NU,.SP,.PE,.SL,.OC,.PF,.LN,.AS,.MW,.AV,.LY,.A7,.DT,.PZ,.BM,.BK,.PK,.A5,.LT,.SG,.PM,.Q1,.SO,.A0,.SY,.SK,.DW,.PI,.BD {
+}*/
+
+.AK { background: url('/images/symbols_retina.png') no-repeat -240px -192px; }
+.BD { background: url('/images/symbols_retina.png') no-repeat -48px -0px;    }
+.BE { background: url('/images/symbols_retina.png') no-repeat -72px 0px;     }
+.BG { background: url('/images/symbols_retina.png') no-repeat -120px -0px;   }
+.BN { background: url('/images/symbols_retina.png') no-repeat -288px -0px;   }
+.BP { background: url('/images/symbols_retina.png') no-repeat -336px 0px;    }
+.HS { background: url('/images/symbols_retina.png') no-repeat -240px -72px;  }
+.HW { background: url('/images/symbols_retina.png') no-repeat -144px -72px;  }
+.LJ { background: url('/images/symbols_retina.png') no-repeat -216px -96px;  }
+.LK { background: url('/images/symbols_retina.png') no-repeat -240px -96px;  }
+.LN { background: url('/images/symbols_retina.png') no-repeat -312px -96px;  }
+.LR { background: url('/images/symbols_retina.png') no-repeat -24px -120px;  }
+.LV { background: url('/images/symbols_retina.png') no-repeat -120px -120px; }
+.LY { background: url('/images/symbols_retina.png') no-repeat -288px -144px; }
+.MS { background: url('/images/symbols_retina.png') no-repeat -240px -24px;  }
+.MV { background: url('/images/symbols_retina.png') no-repeat -312px -24px;  }
+.OG { background: url('/images/symbols_retina.png') no-repeat -120px -144px; }
+.P1 { background: url('/images/symbols_retina.png') no-repeat 0px -24px;     }
+.P2 { background: url('/images/symbols_retina.png') no-repeat -24px -24px;   }
+.P3 { background: url('/images/symbols_retina.png') no-repeat -48px -24px;   }
+.P4 { background: url('/images/symbols_retina.png') no-repeat -72px -24px;   }
+.P5 { background: url('/images/symbols_retina.png') no-repeat -96px -24px;   }
+.P6 { background: url('/images/symbols_retina.png') no-repeat -120px -24px;  }
+.P7 { background: url('/images/symbols_retina.png') no-repeat -144px -24px;  }
+.P8 { background: url('/images/symbols_retina.png') no-repeat -168px -24px;  }
+.P9 { background: url('/images/symbols_retina.png') no-repeat -192px -24px;  }
+.PF { background: url('/images/symbols_retina.png') no-repeat -120px -48px;  }
+.PI { background: url('/images/symbols_retina.png') no-repeat -192px -48px;  }
+.PU { background: url('/images/symbols_retina.png') no-repeat -96px -72px;   }
+.SK { background: url('/images/symbols_retina.png') no-repeat -240px -240px; }
