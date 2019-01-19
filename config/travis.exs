@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :aprsme, Aprsme.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "",
+  username: "aprsme",
+  password: "aprsme",
   database: "aprsme_test",
   hostname: "localhost",
   port: 5433,
