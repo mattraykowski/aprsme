@@ -16,4 +16,5 @@ config :aprsme, Aprsme.Repo,
   password: "",
   database: "aprsme_test",
   hostname: "localhost",
+  port: 5433
   pool: Ecto.Adapters.SQL.Sandbox
