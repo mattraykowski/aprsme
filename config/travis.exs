@@ -13,7 +13,7 @@ config :logger, level: :warn
 config :aprsme, Aprsme.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "travis",
-  password: "travis",
+  password: "",
   database: "aprsme_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
