@@ -1,0 +1,13 @@
+<h2>Latest Packets for <%= @callsign %></h2>
+
+<%= pagination_links @page, view_style: :semantic %>
+<div class="ui list">
+  <%= for packet <- @page.entries do %>
+    <div class="item">
+      <%= link format_ts(packet.inserted_at), to: packet_path(@conn, :show, packet) %>:
+      <span class="mono"><%= packet.origpacket %></span>
+    </div>
+  <% end %>
+</div>
+
+<%= pagination_links @page, view_style: :semantic %>

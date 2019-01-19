@@ -23,6 +23,7 @@ defmodule AprsmeWeb do
       import Plug.Conn
       import AprsmeWeb.Router.Helpers
       import AprsmeWeb.Gettext
+
     end
   end
 
@@ -41,6 +42,10 @@ defmodule AprsmeWeb do
       import AprsmeWeb.Router.Helpers
       import AprsmeWeb.ErrorHelpers
       import AprsmeWeb.Gettext
+
+      # app-specific
+      import AprsmeWeb.TimeFormatting
+      import Scrivener.HTML
     end
   end
 

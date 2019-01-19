@@ -1,0 +1,49 @@
+<h2>Packet Info</h2>
+<p>Received at <%= @packet.inserted_at |> format_ts %></p>
+
+<table class="ui table celled stackable compact tiny selectable">
+  <tr>
+    <td>Originating Callsign</td>
+    <td><%= link @packet.srccallsign, to: call_path(@conn, :show, @packet.srccallsign) %></td>
+  </tr>
+  <%= attr_row @packet.alive, "Alive" %>
+  <%= attr_row @packet.altitude, "Altitude" %>
+  <%= attr_row @packet.body, "Body" %>
+  <%= attr_row @packet.checksumok, "Checksum OK" %>
+  <%= attr_row @packet.comment, "Comment" %>
+  <%= attr_row @packet.course, "Course" %>
+  <%= attr_row @packet.daodatumbyte, "DAO Datum Byte" %>
+  <%= attr_row @packet.destination, "Destination" %>
+  <%= attr_row @packet.dstcallsign, "Destination Callsign" %>
+  <%= attr_row @packet.dxcall, "DX Call" %>
+  <%= attr_row @packet.dxfreq, "DX Freq" %>
+  <%= attr_row @packet.dxinfo, "DX Info" %>
+  <%= attr_row @packet.dxsource, "DX Source" %>
+  <%= attr_row @packet.dxtime, "DX Time" %>
+  <%= attr_row @packet.format, "Format" %>
+  <%= attr_row @packet.gpsfixstatus, "GPS Fix Status" %>
+  <%= attr_row @packet.header, "Header" %>
+  <%= attr_row @packet.itemname, "Item Name" %>
+  <%= attr_row @packet.latitude, "Latitude" %>
+  <%= attr_row @packet.longitude, "Longitude" %>
+  <%= attr_row @packet.mbits, "Mic-E Bits" %>
+  <%= attr_row @packet.message, "Message" %>
+  <%= attr_row @packet.messageack, "Message ACK" %>
+  <%= attr_row @packet.messageid, "Message ID" %>
+  <%= attr_row @packet.messagerej, "Message Rejected" %>
+  <%= attr_row @packet.messaging, "Messaging" %>
+  <%= attr_row @packet.objectname, "Object Name" %>
+  <%= attr_row @packet.origpacket, "Original Packet" %>
+  <%= attr_row @packet.type, "Packet Type" %>
+  <%= attr_row @packet.posambiguity, "Position Ambiguity" %>
+  <%= attr_row @packet.posresolution, "Position Resolution" %>
+  <%= attr_row @packet.radiorange, "Radio Range" %>
+  <%= attr_row @packet.resultcode, "Result Code" %>
+  <%= attr_row @packet.resultmsg, "Result Msg" %>
+  <%= attr_row @packet.speed, "Speed" %>
+  <%= attr_row @packet.status, "Status" %>
+  <%= attr_row @packet.symbolcode, "Symbol Code" %>
+  <%= attr_row @packet.symboltable, "Symbol Table" %>
+</table>
+
+<%= link "Back", to: packet_path(@conn, :index) %>

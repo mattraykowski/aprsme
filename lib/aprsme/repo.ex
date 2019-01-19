@@ -3,6 +3,8 @@ defmodule Aprsme.Repo do
     otp_app: :aprsme,
     adapter: Ecto.Adapters.Postgres
 
+  use Scrivener, page_size: 50
+
   require Logger
 
   alias Aprsme.Aprs.Packet

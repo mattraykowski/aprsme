@@ -1,0 +1,22 @@
+<h2>Listing packets</h2>
+
+<table class="ui table celled">
+  <thead>
+    <tr>
+      <th>Received At</th>
+      <th>Source Callsign</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for packet <- @page.entries do %>
+    <tr>
+      <td class="collapsing"><%= link packet.inserted_at, to: packet_path(@conn, :show, packet)  %></td>
+      <td><%= link packet.srccallsign, to: call_path(@conn, :show, packet.srccallsign) %></td>
+      <td><%= packet.comment %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= pagination_links @page, view_style: :semantic %>

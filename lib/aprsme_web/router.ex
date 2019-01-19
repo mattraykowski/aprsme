@@ -18,12 +18,12 @@ defmodule AprsmeWeb.Router do
 
     get("/", PageController, :index)
 
-    # login required
     scope "/" do
       get("/map", MapController, :index)
 
-      # resources "/packets", PacketController, only: [:index, :show]
-      # resources "/call", CallController, only: [:show]
+      resources "/packets", PacketController, only: [:index, :show]
+      resources "/call", CallController, only: [:show]
+
       get("/faq", PageController, :faq)
     end
   end
