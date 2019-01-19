@@ -23,11 +23,10 @@ addons:
 before_script:
   - psql -U travis -c "create extension postgis"
   - cp config/travis.exs config/test.exs
-  - mix do ecto.create, ecto.migrate
+  - MIX_ENV=test mix do ecto.create, ecto.migrate
 
 env:
   global:
-    - MIX_ENV=test
     - PGUSER=travis
     - PGHOST=""
     - PGPORT=5433
