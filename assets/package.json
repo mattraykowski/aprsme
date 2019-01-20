@@ -6,9 +6,9 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
-    "phoenix": "file:./deps/phoenix",
-    "phoenix_html": "file:./deps/phoenix_html",
-    "babel-plugin-transform-runtime": "^6.23.0",
+  "phoenix": "file:../../deps/phoenix",
+  "phoenix_html": "file:../../deps/phoenix_html",
+  "babel-plugin-transform-runtime": "^6.23.0",
     "leaflet.heat": "^0.2.0",
     "vue": "^2.5.16",
     "vue-brunch": "^2.0.0"
