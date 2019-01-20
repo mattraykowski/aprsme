@@ -1,3 +1,2 @@
-npm deploy
 cd ..
 mix phx.digest

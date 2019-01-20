@@ -45,11 +45,13 @@ defmodule Aprsme.Mixfile do
       {:jason, "~> 1.1"},
       # non-phoenix deps added after here..
       {:amqp, "~> 1.1"},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+      {:coveralls, "~> 2.0", only: [:dev, :test], runtime: false},
       {:timex, "~> 3.4"},
       {:geo, "~> 3.0"},
       {:geo_postgis, "~> 3.0"},
       {:scrivener_ecto, "~> 2.0.0"},
-      {:scrivener_html, "~> 1.7.1", git: "https://github.com/nazarsh/scrivener_html.git"},
+      {:scrivener_html, "~> 1.7.1", git: "https://github.com/nazarsh/scrivener_html.git"}
     ]
   end
 
