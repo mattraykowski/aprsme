@@ -31,7 +31,7 @@ Alternatively, open the RabbitMQ admin interface at http://localhost:15672/#/vho
 
 ## Start the web server:
 
-    $ iex -S mix phoenix.server
+    $ iex -S mix phx.server
 
 ## Migrate the database:
 
