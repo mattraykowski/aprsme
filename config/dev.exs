@@ -63,4 +63,5 @@ config :aprsme, Aprsme.Repo,
   password: "postgres",
   database: "aprsme_dev",
   hostname: "localhost",
+  port: 25432,
   pool_size: 10

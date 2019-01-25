@@ -19,7 +19,7 @@ services:
       - 'rabbitmq'
     image: 'tcollen/aprs_slurp:latest'
     environment:
-      - APRS_USERNAME=N0RUA-13
+      - APRS_USERNAME=APRSME-99
       - APRS_SERVER=204.110.191.245:10152
       - RABBITMQ_USERNAME=user
       - RABBITMQ_PASSWORD=bitnami
@@ -28,3 +28,12 @@ services:
       - RABBITMQ_HOST=rabbitmq
     networks:
       - app-tier
+  postgres:
+    image: 'mdillon/postgis:10'
+    ports:
+      - 25432:5432
+    environment:
+      - POSTGRES_DB=aprsme_dev
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
