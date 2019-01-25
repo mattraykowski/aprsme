@@ -20,7 +20,7 @@ defmodule Aprsme.Mixfile do
   def application do
     [
       mod: {Aprsme.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :appsignal]
     ]
   end
 
@@ -51,7 +51,8 @@ defmodule Aprsme.Mixfile do
       {:geo, "~> 3.0"},
       {:geo_postgis, "~> 3.0"},
       {:scrivener_ecto, "~> 2.0.0"},
-      {:scrivener_html, "~> 1.7.1", git: "https://github.com/nazarsh/scrivener_html.git"}
+      {:scrivener_html, "~> 1.7.1", git: "https://github.com/nazarsh/scrivener_html.git"},
+      {:appsignal, "~> 1.0"}
     ]
   end
 
