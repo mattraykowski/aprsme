@@ -35,5 +35,4 @@ services:
     environment:
       - POSTGRES_DB=aprsme_dev
     volumes:
-      - ./data:/var/lib/postgresql/data
-
+      - ./postgres/data:/var/lib/postgresql/data
