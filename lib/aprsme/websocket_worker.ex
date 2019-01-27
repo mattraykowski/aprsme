@@ -5,7 +5,7 @@ defmodule Aprsme.WebsocketWorker do
   use GenServer
   require Logger
 
-  def start_link(args \\ []) do
+  def start_link(_args \\ []) do
     IO.puts("#{__MODULE__}.start_link()")
     GenServer.start_link(__MODULE__, [], name: :websocket_worker)
   end
