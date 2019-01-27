@@ -46,7 +46,9 @@
   background-color: rgba(0, 0, 0, 0.5);
   padding-left: 0.3rem;
   padding-right: 0.3rem;
+  padding-top: 0.2rem;
   border-radius: 3px;
+  font-family: "Lucida Console";
 }
 
 .aprs-icon-callsign {
@@ -90,3 +92,11 @@
 .PI { background: url('/images/symbols_retina.png') no-repeat -192px -48px;  }
 .PU { background: url('/images/symbols_retina.png') no-repeat -96px -72px;   }
 .SK { background: url('/images/symbols_retina.png') no-repeat -240px -240px; }
+
+.station-popup p {
+  margin: 0;
+}
+
+.station-popup .ui.divider {
+  margin: 0;
+}

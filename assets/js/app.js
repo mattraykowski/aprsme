@@ -127,7 +127,7 @@ if ($('#map').length !== 1) {
       if (symbols.symbols[pkt.symboltable + pkt.symbolcode] && symbols.symbols[pkt.symboltable + pkt.symbolcode].tocall) {
         symbol_class = symbols.symbols[pkt.symboltable + pkt.symbolcode].tocall
       } else {
-        //console.log("%c Invalid Symbol: " + pkt.symboltable + pkt.symbolcode, "background: #000; color: #fff");
+        console.log("%c Invalid Symbol: " + pkt.symboltable + pkt.symbolcode, "background: #000; color: #fff");
       }
 
       if (marker) {
@@ -261,27 +261,53 @@ if ($('#map').length !== 1) {
               //console.log("%c Unknown Symbol: " + pkt.getSymbol(), "background: #000; color: #fff");
             }
 
-             let popupText = `
-               <div class="ui grid">
-                 <div class="row">
-                   <h1>
-                     ${call}
-                   </h1>
-                 </div>
-                 <div class="row">
-                   <div>
-                     <span class="aprs-symbol aprs-icon-symbol ${symbol_class}">&nbsp;</span>
-                   </div>
-                   <a href="/call/${call}" target="_blank">Info <i class="ui icon external"></i></a>
-                 </div>
-               </div>
-             `;
+            let popupText = `
+              <div class="ui padded grid">
+                <div class="two wide column">
+                  <span class="aprs-symbol aprs-icon-symbol ${symbol_class}">&nbsp;</span>
+                </div>
+                <div class="ten wide column">
+                  <h3>
+                    <b>${call}</b>
+                  </h3>
+                </div>
+                <div class="four wide column">
+                  <a href="/call/${call}" target="_blank">Info <i class="ui icon external"></i></a>
+                </div>
+            `;
 
-             if (pkt.comment !== undefined) {
-               popupText += `<div class="row"><p><em>${pkt.comment}</em></p></div>`;
-             }
+            let customOptions = {
+              'maxWidth': '300',
+              'minWidth': '300',
+              'className': 'station-popup'
+            };
 
-             marker.bindPopup(popupText);
+            if (pkt.comment !== undefined) {
+              popupText += `
+                <div class="sixteen wide column">
+                  <h4 class="ui horizontal divider">Info</h4>
+                </div>
+                <div class="sixteen wide column">
+                  <p>
+                    <em>${pkt.comment}</em>
+                  </p>
+                </div>
+              `;
+            } else {
+              popupText += `
+                <div class="sixteen wide column">
+                  <h4 class="ui horizontal divider">Info</h4>
+                </div>
+                <div class="sixteen wide column">
+                  <p>
+                  </p>
+                </div>
+              `;
+            }
+
+            popupText += `</div>`
+
+            marker.bindPopup(popupText, customOptions);
 
           } else {
             console.log("Unhandled packet type:", pkt.type);
