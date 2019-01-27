@@ -58,7 +58,7 @@ config :logger, level: :info
 #     config :aprsme, AprsmeWeb.Endpoint, server: true
 #
 
-config :aprsme, AprsmeWeb.Endpoint, url: [host: "https://aprs.me"]
+config :aprsme, AprsmeWeb.Endpoint, url: [host: "http://aprs.me"]
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
