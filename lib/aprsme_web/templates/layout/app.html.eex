@@ -19,10 +19,6 @@
   </head>
 
   <body>
-    <div id="nav" class="ui menu stackable">
-      <%= link "APRS.me", to: "/", class: "header item" %>
-    </div>
-
     <div>
       <%= if get_flash(@conn, :info) do %>
         <div class="ui message positive"><%= get_flash(@conn, :info) %></div>

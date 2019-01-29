@@ -16,15 +16,9 @@ defmodule AprsmeWeb.Router do
   scope "/", AprsmeWeb do
     pipe_through([:browser])
 
-    get("/", PageController, :index)
+    get("/", MapController, :index)
 
-    scope "/" do
-      get("/map", MapController, :index)
-
-      resources("/packets", PacketController, only: [:index, :show])
-      resources("/call", CallController, only: [:show])
-
-      get("/faq", PageController, :faq)
-    end
+    resources("/packets", PacketController, only: [:show])
+    resources("/call", CallController, only: [:show])
   end
 end

@@ -20,3 +20,4 @@ npm-debug.log
 /priv/static/
 
 log
+*.swp

@@ -10,7 +10,7 @@ defmodule Aprsme.ArchiveWorker do
   alias Aprsme.Aprs.Packet
 
   # API
-  def start_link(args \\ []) do
+  def start_link(_args \\ []) do
     GenServer.start_link(__MODULE__, [], name: :archive_worker)
   end
 

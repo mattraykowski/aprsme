@@ -46,4 +46,4 @@
   <%= attr_row @packet.symboltable, "Symbol Table" %>
 </table>
 
-<%= link "Back", to: packet_path(@conn, :index) %>
+<%= link "Back to callsign", to: call_path(@conn, :show, @packet.srccallsign) %>

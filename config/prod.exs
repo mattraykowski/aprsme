@@ -58,7 +58,10 @@ config :logger, level: :info
 #     config :aprsme, AprsmeWeb.Endpoint, server: true
 #
 
-config :aprsme, AprsmeWeb.Endpoint, url: [host: "https://aprs.me"]
+# check_origin must be specified to enable WebSockets to work
+config :aprsme, AprsmeWeb.Endpoint,
+  url: [host: "https://aprs.me"],
+  check_origin: ["//aprs.me"]
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.

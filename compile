@@ -1,2 +1,3 @@
+brunch build --production
 cd ..
 mix phx.digest
