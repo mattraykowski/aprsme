@@ -29,6 +29,10 @@ You may need to curl http://localhost:15672/cli/rabbitmqadmin and add it in /usr
 
 Alternatively, open the RabbitMQ admin interface at http://localhost:15672/#/vhosts, and add a vhost named "aprs"
 
+## Install dependencies:
+
+    $ mix deps.get
+
 ## Start the web server:
 
     $ iex -S mix phx.server
