@@ -18,8 +18,8 @@ defmodule Aprsme.Repo do
   end
 
   def purge_old_packets! do
-    purge_count = Application.fetch_env!(:aprs_web, :purge_packet_count)
-    purge_interval = Application.fetch_env!(:aprs_web, :purge_packet_interval)
+    purge_count = Application.fetch_env!(:aprsme, :purge_packet_count)
+    purge_interval = Application.fetch_env!(:aprsme, :purge_packet_interval)
 
     Logger.info("Purging: purge_count: #{purge_count}, purge_interval: #{purge_interval}")
 

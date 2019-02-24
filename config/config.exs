@@ -28,6 +28,20 @@ config :aprsme,
 
 config :aprsme, Aprsme.Repo, types: Aprsme.PostgresTypes
 
+config :aprsme, Aprsme.Scheduler,
+  # Don't schedule to run on all nodes in the cluster
+  global: true,
+  jobs: [
+    purge_packets: [
+      schedule: System.get_env("SCHEDULE_PURGE_PACKETS") || "@hourly",
+      task: {Aprsme.PurgePacketWorker, :run, []}
+    ]
+  ]
+
+config :aprsme,
+  purge_packet_count: System.get_env("PACKET_PURGE_COUNT") || 1,
+  purge_packet_interval: System.get_env("PACKET_PURGE_INTERVAL") || "day"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
