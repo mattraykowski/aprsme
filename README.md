@@ -41,10 +41,6 @@ Alternatively, open the RabbitMQ admin interface at http://localhost:15672/#/vho
 
     $ mix ecto.migrate
 
-Or on prod/staging:
-
-    $ ssh aprs.vntx.net -t "sudo dokku run aprs_web 'mix ecto.migrate'"
-
 ## Seed the database and create an admin user:
 
     $ mix run priv/repo/seeds.exs
