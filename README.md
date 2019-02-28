@@ -52,17 +52,6 @@ Then navigate to <a href="http://127.0.0.1:4000/">http://127.0.0.1:4000/</a> and
 
     $ mix test.watch
 
-## Deploying
-
-Add dokku as a remote:
-
-    $ git remote add prod dokku@aprs.vntx.net:aprs_web
-
-Push:
-
-    $ git push prod master
-
-
 ## Troubleshooting message publishing
 
 Use the script (requires jq to be installed):
