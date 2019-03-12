@@ -40,7 +40,7 @@ config :aprsme, AprsmeWeb.Endpoint,
 config :aprsme, AprsmeWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg|scss)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/aprsme_web/views/.*(ex)$},
       ~r{lib/aprsme_web/templates/.*(eex)$}

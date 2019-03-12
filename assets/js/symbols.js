@@ -1,4 +1,12 @@
-export default {
+export const getSymbol = packet => {
+   const lookup = packet.symboltable + packet.symbolcode;
+
+   return SYMBOLS.symbols[lookup] && SYMBOLS.symbols[lookup].tocall ?
+   SYMBOLS.symbols[lookup].tocall :
+      "";
+}
+
+export const SYMBOLS = {
    "symbols" : {
       "/U" : {
          "tocall" : "PU",

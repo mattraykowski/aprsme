@@ -12,26 +12,33 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import Vuex from 'vuex';
+import L from 'leaflet';
+
+// import './app.scss';
 
 // Import local files
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 import socket from "./socket";
-import mapboxAccessToken from './mapboxAccessToken';
-import StationList from "./components/station_list.vue";
+// import mapboxAccessToken from './mapboxAccessToken';
+// import StationList from "./components/station_list.vue";
+import AprsService from './services/aprs_service';
+import MapApp from './components/MapApp';
 import Packet from "./packet";
 import symbols from "./symbols";
 import randomColor from "./randomColor";
+import { store } from './store';
 
 // common to all pages
-$(".dropdown").dropdown();
+// $(".dropdown").dropdown();
 
 // FIXME: Break this out into a separate .js entrypoint
 // that is only served to logged-in users.
-if ($('#map').length !== 1) {
-  console.warn("No map element, not initializing app..");
-} else {
+// if ($('#map').length !== 1) {
+//   console.warn("No map element, not initializing app..");
+// } else {
 
   let data = {
     markersByCallsign: {},
@@ -43,24 +50,24 @@ if ($('#map').length !== 1) {
   window.data = data;
 
   // map stuff here
-  const MAX_ZOOM = 20;
+  // const MAX_ZOOM = 20;
 
-  let map = L.map('map', {
-    minZoom: 1,
-    maxZoom: MAX_ZOOM,
-    worldCopyJump: true,
-    keyboard: true
-  }).setView([44.94, -93.17], 10);
+  // let map = L.map('map', {
+  //   minZoom: 1,
+  //   maxZoom: MAX_ZOOM,
+  //   worldCopyJump: true,
+  //   keyboard: true
+  // }).setView([44.94, -93.17], 10);
 
-  let resizeMap = () => {
-    console.log("resizeMap");
+  // let resizeMap = () => {
+  //   console.log("resizeMap");
 
-    const height = $(window).height();
-    const width = $(window).width();
+  //   const height = $(window).height();
+  //   const width = $(window).width();
 
-    $('#map').height(height).width(width);
-    map.invalidateSize();
-  };
+  //   $('#map').height(height).width(width);
+  //   map.invalidateSize();
+  // };
 
   // let heat = L.heatLayer([], {radius: 20, minOpacity: 0.5});
 
@@ -69,10 +76,11 @@ if ($('#map').length !== 1) {
   // });
 
 
-  $(window).on('resize', () => {
-    resizeMap();
-  }).trigger('resize');
+  // $(window).on('resize', () => {
+  //   resizeMap();
+  // }).trigger('resize');
 
+  /** SAVE FROM HERE 
   L.easyButton('<i class="ui large icon location arrow"></i>', function(btn, map) {
     map.locate({
       maxZoom: 10,
@@ -112,7 +120,7 @@ if ($('#map').length !== 1) {
   });
 
   map.addLayer(markerGroup);
-
+*/
   // END map stuff
 
   let mapMarkerService = {
@@ -171,10 +179,13 @@ if ($('#map').length !== 1) {
 
         Vue.set(data.markersByCallsign, callsign, marker);
         data.recentCallsigns.push(callsign);
+        store.commit('addRecentCallsign', callsign);
+        store.commit('setCallsignMarker', { callsign, marker });
 
         if (!pkt.isObject()) {
           let polyline = L.polyline(packetPos, {color: randomColor(), opacity: 0.8, weight: 4, smoothFactor: 1.0}).addTo(map);
-          Vue.set(data.polylinesByCallsign, callsign, polyline)
+          Vue.set(data.polylinesByCallsign, callsign, polyline);
+          store.commit('setCallsignPolyline', { callsign, polyline });
         }
       }
 
@@ -182,49 +193,28 @@ if ($('#map').length !== 1) {
     }
   };
 
-  let vm = new Vue({
+  const aprsService = new AprsService(socket, store);
+  Vue.prototype.$aprsService = aprsService;
+
+  const app = new Vue({
     el: '#app',
     data: data,
+    store,
     components: {
-      'station-list': StationList,
-    },
-    computed: {
-      stationsByCallsign: function() {
-        return Object.keys(data.markersByCallsign);
-      },
-      zoomedOutTooFar: function() {
-        // This need to be coordinated with
-        // The min_zoom_level in aprs_channel.ex
-        return data.mapZoom < 9;
-      }
-    },
-    methods: {
-      focusMarker: function(callsign) {
-        const marker = data.markersByCallsign[callsign];
-
-        if (marker) {
-          console.log("marker latlng:", marker.getLatLng() );
-          map.setView(marker.getLatLng());
-          marker.openPopup();
-        }
-      }
+      MapApp,
     },
     template: `
-      <div id="vueApp">
-        <div class="ui container">
-          <div v-if="zoomedOutTooFar" class="ui blue icon tiny message">
-            <i class="icon info circle"></i>
-            <div class="content">
-              <p>Zoom in to see live positions.</p>
-            </div>
-          </div>
-
-          <station-list :stations="recentCallsigns" :focusMarker="focusMarker" />
-
-        </div> <!-- container -->
-      </div>
+    <MapApp 
+      :markersByCallsign="markersByCallsign" 
+      :polylinesByCallsign="polylinesByCallsign" 
+      :recentCallsigns="recentCallsigns" 
+      :mapZoom="mapZoom" />
     `,
   });
+
+  // Tell Vue to use Vuex.
+  // Vue.use(Vuex);
+
 
   let APRS = {
 
@@ -325,6 +315,7 @@ if ($('#map').length !== 1) {
           console.log("Join failed because:", reason);
         });
 
+        /*
       map.on('zoomend', function(e) {
         self._refreshPositions(map, channel);
 
@@ -344,11 +335,11 @@ if ($('#map').length !== 1) {
         //   console.log("hiding heatmap");
         // }
 
-      });
+      });*
 
       map.on('dragend', function(e) {
         self._refreshPositions(map, channel);
-      });
+      });*/
     },
 
     _refreshPositions: function(map, channel) {
@@ -375,22 +366,22 @@ if ($('#map').length !== 1) {
 
 
     _sendMapBounds: (map, channel) => {
-      let bounds = map.getBounds();
-      let zoom = map.getZoom();
+      // let bounds = map.getBounds();
+      // let zoom = map.getZoom();
 
-      data.mapZoom = zoom;
+      // data.mapZoom = zoom;
 
-      console.log("sendMapBounds: bounds:", bounds);
-      console.log("sendMapBounds: zoom:", zoom);
+      // console.log("sendMapBounds: bounds:", bounds);
+      // console.log("sendMapBounds: zoom:", zoom);
 
-      channel.push('map_bounds', {
-        ne: bounds._northEast,
-        sw: bounds._southWest,
-        zoom: zoom,
-      });
+      // channel.push('map_bounds', {
+      //   ne: bounds._northEast,
+      //   sw: bounds._southWest,
+      //   zoom: zoom,
+      // });
     },
 
   }; // APRS
 
-  APRS.init(socket, map, mapMarkerService);
-}
+  // APRS.init(socket, map, mapMarkerService);
+// }

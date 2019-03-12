@@ -1,40 +1,26 @@
-<script>
-export default {
-  props: ['stations', 'focusMarker'],
-  data() {
-    return {};
-  },
-  computed: {
-    stationCount: function() {
-      return this.stations.length;
-    },
-    reversedStations: function() {
-      return this.stations.slice().reverse();
-    }
-  },
-}
-</script>
-
 <template>
-<div class="station-list-component">
-  <div class="item">
-    <div class="header">Latest Callsigns</div>
-  </div>
+  <div>
+    <p class="menu-label">Latest Callsigns</p>
 
-  <div class="stations ui relaxed divided list">
-    <a @click="focusMarker(callsign)" class="item" v-for="callsign in reversedStations">{{callsign}}</a>
+    <div class="list">
+      <a
+        v-for="(a, callsign) in stations"
+        :key="callsign"
+        class="list-item is-small"
+        @click="focusMarker(callsign)"
+      >{{callsign}}</a>
+    </div>
   </div>
-
-</div>
 </template>
 
-<style>
-.station-list-component h3 {
-  text-align: center;
-}
-
-
-.stations {
-  overflow-y: auto;
-}
-</style>
+<script>
+export default {
+  props: ["focusMarker"],
+  data: () => ({}),
+  computed: {
+    stations() {
+      return this.$store.state.markersByCallsign;
+    }
+  }
+};
+</script>
