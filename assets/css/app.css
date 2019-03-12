@@ -22,7 +22,6 @@
 .aprs-symbol {
   font-size: 18pt;
   display: inline;
-  float: left;
 }
 
 .aprs-symbol.aprs-icon-symbol {
@@ -30,7 +29,6 @@
 }
 
 .aprs-icon-symbol {
-  /* background-color: red; */
   height: 22px;
   width: 24px;
 }
@@ -91,11 +89,3 @@
 .PI { background: url('/images/symbols_retina.png') no-repeat -192px -48px;  }
 .PU { background: url('/images/symbols_retina.png') no-repeat -96px -72px;   }
 .SK { background: url('/images/symbols_retina.png') no-repeat -240px -240px; }
-
-.station-popup p {
-  margin: 0;
-}
-
-.station-popup .ui.divider {
-  margin: 0;
-}

@@ -5,7 +5,7 @@ export default class Packet {
     this.capabilities = p.capabilities;
     this.checksumok = p.checksumok;
     this.comment = p.comment;
-    this.couse = p.course;
+    this.course = p.course;
     this.daodatumbyte = p.daodatumbyte;
     this.destination = p.destination;
     this.dstcallsign = p.dstcallsign;

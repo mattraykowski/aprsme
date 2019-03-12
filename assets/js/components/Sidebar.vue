@@ -11,7 +11,8 @@ export default {
 
 <style scoped>
 .sidebar {
-  height: 100vh;
+  height: 100%;
+  padding: 1em;
   margin: 0.5em;
   overflow: scroll;
 }
@@ -19,8 +20,6 @@ export default {
 
 <template>
   <div class="sidebar">
-    <aside class="menu">
-      <station-list :focusMarker="focusMarker"/>
-    </aside>
+    <station-list :focusMarker="focusMarker"/>
   </div>
 </template>

@@ -12,23 +12,16 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-import Vuex from 'vuex';
-import L from 'leaflet';
-
-// import './app.scss';
 
 // Import local files
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 import socket from "./socket";
-// import mapboxAccessToken from './mapboxAccessToken';
-// import StationList from "./components/station_list.vue";
 import AprsService from './services/aprs_service';
 import MapApp from './components/MapApp';
 import Packet from "./packet";
 import symbols from "./symbols";
-import randomColor from "./randomColor";
 import { store } from './store';
 
 // common to all pages
@@ -40,25 +33,7 @@ import { store } from './store';
 //   console.warn("No map element, not initializing app..");
 // } else {
 
-  let data = {
-    markersByCallsign: {},
-    polylinesByCallsign: {},
-    recentCallsigns: [],
-    mapZoom: 10
-  };
-
-  window.data = data;
-
-  // map stuff here
-  // const MAX_ZOOM = 20;
-
-  // let map = L.map('map', {
-  //   minZoom: 1,
-  //   maxZoom: MAX_ZOOM,
-  //   worldCopyJump: true,
-  //   keyboard: true
-  // }).setView([44.94, -93.17], 10);
-
+ 
   // let resizeMap = () => {
   //   console.log("resizeMap");
 
@@ -69,26 +44,12 @@ import { store } from './store';
   //   map.invalidateSize();
   // };
 
-  // let heat = L.heatLayer([], {radius: 20, minOpacity: 0.5});
-
-  // setTimeout(() => {
-  //   map.addLayer(heat);
-  // });
-
 
   // $(window).on('resize', () => {
   //   resizeMap();
   // }).trigger('resize');
 
   /** SAVE FROM HERE 
-  L.easyButton('<i class="ui large icon location arrow"></i>', function(btn, map) {
-    map.locate({
-      maxZoom: 10,
-      setView: true,
-      timeout: 5000,
-    });
-  }).addTo(map);
-
   L.easyButton('<i class="ui large icon angle double right"></i>', function(btn, map) {
     $('#map-sidebar').sidebar({
       dimPage: false,
@@ -101,114 +62,22 @@ import { store } from './store';
     }).sidebar('toggle');
 
   }).addTo(map);
-
-  // $.getJSON('http://aprs.me:8080/json/?callback=?', function(data) {
-  $.getJSON('//freegeoip.net/json/?callback=?', function(data) {
-    map.setView([data.latitude, data.longitude], 10);
-  });
-
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: MAX_ZOOM,
-    id: 'mapbox.streets',
-    accessToken: mapboxAccessToken
-  }).addTo(map);
-
-  let markerGroup = L.markerClusterGroup({
-    removeOutsideVisibleBounds: true,
-    disableClusteringAtZoom: 8
-  });
-
-  map.addLayer(markerGroup);
 */
   // END map stuff
 
-  let mapMarkerService = {
-    updateOrCreateMarker: (pkt) => {
-      let callsign = pkt.getDisplayName();
-      let lat = pkt.latitude;
-      let lng = pkt.longitude;
-      let packetPos = pkt.getLatLng();
-
-      let marker = data.markersByCallsign[callsign];
-      let symbol_class = "";
-      if (symbols.symbols[pkt.symboltable + pkt.symbolcode] && symbols.symbols[pkt.symboltable + pkt.symbolcode].tocall) {
-        symbol_class = symbols.symbols[pkt.symboltable + pkt.symbolcode].tocall
-      } else {
-        console.log("%c Invalid Symbol: " + pkt.symboltable + pkt.symbolcode, "background: #000; color: #fff");
-      }
-
-      if (marker) {
-        const oldLatLng = marker.getLatLng();
-
-        if (pkt.isDifferentLocation(oldLatLng)) {
-          let newPos = pkt.getLatLng();
-
-          if (!pkt.isObject()) {
-            let polyline = data.polylinesByCallsign[callsign];
-            if (polyline) {
-              polyline.addLatLng(packetPos);
-            }
-          }
-
-          marker.setLatLng(packetPos);
-          // heat.addLatLng(newPos);
-
-        } else {
-          //console.log("  -> location same, skipping");
-        }
-      } else {
-        //console.log("[new]");
-
-        let icon = new L.DivIcon({
-          html: `
-            <div class="aprs-map-symbol-wrapper">
-              <div class="aprs-icon-symbol map ${symbol_class}">
-
-              </div>
-              <span class="aprs-marker-callsign">${callsign}</span>
-            </div>
-          `,
-          className: 'aprs-icon-callsign',
-          iconSize : L.point(100, 18),
-          iconAnchor: L.point(0, 0)
-        });
-
-        marker = new L.Marker(packetPos, {icon: icon});
-        markerGroup.addLayer(marker);
-
-        Vue.set(data.markersByCallsign, callsign, marker);
-        data.recentCallsigns.push(callsign);
-        store.commit('addRecentCallsign', callsign);
-        store.commit('setCallsignMarker', { callsign, marker });
-
-        if (!pkt.isObject()) {
-          let polyline = L.polyline(packetPos, {color: randomColor(), opacity: 0.8, weight: 4, smoothFactor: 1.0}).addTo(map);
-          Vue.set(data.polylinesByCallsign, callsign, polyline);
-          store.commit('setCallsignPolyline', { callsign, polyline });
-        }
-      }
-
-      return marker;
-    }
-  };
 
   const aprsService = new AprsService(socket, store);
   Vue.prototype.$aprsService = aprsService;
 
   const app = new Vue({
     el: '#app',
-    data: data,
+    data: {},
     store,
     components: {
       MapApp,
     },
     template: `
-    <MapApp 
-      :markersByCallsign="markersByCallsign" 
-      :polylinesByCallsign="polylinesByCallsign" 
-      :recentCallsigns="recentCallsigns" 
-      :mapZoom="mapZoom" />
+    <MapApp />
     `,
   });
 

@@ -57,32 +57,29 @@ export default class AprsService {
         const symbol = getSymbol(packet);
         const polyColor = getHashedColor(callsign);
 
-        let marker = this.store.state.markersByCallsign[callsign];
+        let station = this.store.state.allStations.find(s => s.callsign === callsign);
 
-        if(marker) {
+        if(station) {
           // Handling the case when the marker is already in Vuex.
-          if(packet.isDifferentLocation(marker.position) && callsign !== 'WINLINK') {
-            // console.log(`UPDATING EXISTING: '${callsign}'`)
+          if(packet.isDifferentLocation(station.position) && callsign !== 'WINLINK') {
             if (!packet.isObject()) {
-              // console.log('  ADDING POINT TO EXISTING OBJECT')
-              marker.polyPoints = [...marker.polyPoints, position]
+              station.polyPoints = [...station.polyPoints, position]
             }
 
-            // Update Marker.
-            marker.position = position;
-            marker.comment = comment;
-            this.store.commit('setCallsignMarker', { callsign, marker })
+            // Update Station.
+            station.position = position;
+            station.comment = comment;
+            this.store.commit("updateStation", station);
           }
         } else {
-          // console.log('ADDING NEW STATION', callsign)
           const polyPoints = [];
 
+          // Object packets should track their positions over time to plot them.
           if (!packet.isObject()) {
-            // console.log('IS OBJECT, ADDING POINT')
             polyPoints.push(position);
           }
 
-          marker = {
+          station = {
             callsign,
             position,
             symbol,
@@ -91,8 +88,8 @@ export default class AprsService {
             polyPoints
           };
 
-          // Add new marker.
-          this.store.commit('setCallsignMarker', { callsign, marker })
+          // Add new station.
+          this.store.commit("addStation", station);
         }
       } else {
         console.log("Warning! Unhandled packet type:", packet.type);
@@ -105,11 +102,12 @@ export default class AprsService {
       console.log(`*** User zoomed too far out, skipping map bounds server update. Zoom level: ${zoom}.`);
       return;
     }
+
     console.log('*** Updating map bounds with server...');
     this.channel.push('map_bounds', {
       ne: bounds._northEast,
       sw: bounds._southWest,
       zoom
-    })
+    });
   }
 }

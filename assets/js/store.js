@@ -2,9 +2,8 @@ import Vuex from 'vuex';
 
 export const store = new Vuex.Store({
   state: {
-    markersByCallsign: {},
-    polylinesByCallsign: {},
-    recentCallsigns: [],
+    allStations: [],
+    stationFilter: '',
     mapZoom: 10,
     bounds: L.latLngBounds([
       [45.3444241045224, -92.58316040039064],
@@ -13,26 +12,24 @@ export const store = new Vuex.Store({
     center: L.latLng([44.950221181527546, -93.08715820312501]),
   },
   mutations: {
-    addRecentCallsign (state, callsign) {
-      state.recentCallsigns = [...state.recentCallsigns, callsign];
+    addStation (state, station) {
+      state.allStations.push(station);
     },
-    setCallsignMarker (state, { callsign, marker }) {
-      state.markersByCallsign = {
-        ...state.markersByCallsign,
-        [callsign]: marker
+    updateStation (state, station) {
+      const index = state.allStations.findIndex(s => s.callsign === station.callsign);
+      if(index !== -1) {
+        state.allStations[index] = station;
       }
     },
-    setCallsignPolyline (state, { callsign, polyline }) {
-      state.polylinesByCallsign[callsign] = polyline;
+    setStationFilter (state, filter) {
+      state.stationFilter = filter;
     },
     setBounds (state, bounds) {
       state.bounds = bounds;
+      // TODO: Filter stations based on bounds
     },
     setMapZoom (state, zoom) {
       state.mapZoom = zoom;
-      // state.markersByCallsign = {};
-      // state.polylinesByCallsign  = {};
-      // state.recentCallsigns = [];
     },
     setCenter(state, center) {
       state.center = center;
@@ -42,7 +39,14 @@ export const store = new Vuex.Store({
     zoom: state => state.mapZoom,
     center: state => state.center,
     bounds: state => state.bounds,
-    markersByCallsign: state => state.markersByCallsign
+    stationCallsigns: state => 
+      state.allStations
+        .filter(s => 
+          s.callsign.toUpperCase().includes(state.stationFilter.toUpperCase()))
+        .map(s => s.callsign),
+    stationFilter: state => state.stationFilter,
+    stations: state => state.allStations
+      .filter(s => s.callsign.toUpperCase().includes(state.stationFilter.toUpperCase()))
   }
 
 });

@@ -34,8 +34,9 @@ export default {
 .vue-app > .columns {
   height: 100vh;
 }
-.columns .column.map {
+.vue-app > .columns > .column {
   margin: 0;
+  padding: 0;
 }
 </style>
 
@@ -49,14 +50,5 @@ export default {
         <map-view ref="mapView"/>
       </div>
     </div>
-    <!-- div class="ui container">
-      <div v-if="zoomedOutTooFar" class="ui blue icon tiny message">
-        <i class="icon info circle"></i>
-        <div class="content">
-          <p>Zoom in to see live positions.</p>
-        </div>
-      </div>
-    </div-->
-    <!-- container -->
   </section>
 </template>

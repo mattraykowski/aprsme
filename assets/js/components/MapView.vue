@@ -1,5 +1,5 @@
 <template>
-  <div id="map-view" :style="style">
+  <div class="map-view">
     <l-map
       :zoom="zoom"
       :minZoom="minZoom"
@@ -16,47 +16,54 @@
       <l-tile-layer :url="url" :attribution="attribution" :options="tileOptions"></l-tile-layer>
       <l-marker-cluster :options="markerGroupOptions">
         <l-marker
-          v-for="(marker, callsign) in markersByCallsign"
-          :key="callsign"
-          :lat-lng="marker.position"
-          :ref="callsign"
-          :options="{ callsign: callsign }"
+          v-for="station in stations"
+          :key="station.callsign"
+          :lat-lng="station.position"
+          :ref="station.callsign"
         >
-          <l-icon :options="markerIconOptions(marker)"/>
+          <l-icon :options="markerIconOptions(station)"/>
           <l-popup :options="{ maxWidth: '300', minWidth: '300', className: 'station-popup' }">
             <div class="columns">
               <div class="column is-2">
-                <span :class="`aprs-symbol aprs-icon-symbol ${marker.symbol}`"></span>
+                <span :class="`aprs-symbol aprs-icon-symbol ${station.symbol}`"></span>
               </div>
               <div class="column is-8">
                 <h3>
-                  <b>{{ callsign }}</b>
+                  <b>{{ station.callsign }}</b>
                 </h3>
               </div>
               <div class="column is-2">
-                <a :href="`/call/${callsign}`" target="_blank">
+                <a :href="`/call/${station.callsign}`" target="_blank">
                   Info
                   <i class="fas fa-external"></i>
                 </a>
               </div>
             </div>
-            <div v-if="marker.comment" class="columns">
+            <div v-if="station.comment" class="columns">
               <div class="column is-12">
-                <em>{{ marker.comment }}</em>
+                <em>{{ station.comment }}</em>
               </div>
             </div>
           </l-popup>
         </l-marker>
       </l-marker-cluster>
       <l-polyline
-        v-for="(marker, callsign) in markersByCallsign"
-        :key="callsign"
-        :latLngs="marker.polyPoints"
-        :color="marker.polyColor"
+        v-for="station in stations"
+        :key="station.callsign"
+        :latLngs="station.polyPoints"
+        :color="station.polyColor"
       />
     </l-map>
   </div>
 </template>
+
+<style scoped>
+.map-view {
+  height: 100%;
+  width: 100%;
+  margin-top: 0.75em;
+}
+</style>
 
 <script>
 import { mapGetters } from "vuex";
@@ -112,31 +119,20 @@ export default {
     LPopup
   },
   computed: {
-    style() {
-      return {
-        width: "100%",
-        height: "100%"
-      };
-    },
-    zoom() {
-      return this.$store.state.zoom;
-    },
-
-    markersByCallsign() {
-      return this.$store.state.markersByCallsign;
-    },
+    ...mapGetters(["zoom", "stations", "bounds", "center"]),
     locateButton() {
       return "<i class='fas fa-location-arrow'></i>";
-    },
-    ...mapGetters(["zoom", "markersByCallsign", "bounds", "center"])
+    }
   },
   methods: {
     markerIconOptions(marker) {
+      const mapSymbol = marker.symbol
+        ? `<div class="aprs-icon-symbol map ${marker.symbol}"></div>`
+        : "";
       return {
         html: `
         <div class="aprs-map-symbol-wrapper aprs-icon-callsign">
-          <div class="aprs-icon-symbol map ${marker.symbol}">
-          </div>
+          ${mapSymbol}
           <span class="aprs-marker-callsign">${marker.callsign}</span>
         </div>
       `
@@ -160,7 +156,6 @@ export default {
     },
     openCallsignPopup(callsign) {
       const callsignMarker = this.$refs[callsign][0];
-      console.log(callsignMarker);
       callsignMarker.mapObject.openPopup();
     },
     centerOnMarker(callsign) {
