@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="menu-label">Latest Callsigns</p>
+    <p>Latest Callsigns</p>
     <input
       class="input"
       type="text"

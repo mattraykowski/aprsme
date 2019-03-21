@@ -4,11 +4,6 @@
   z-index: 999999;
 }
 
-#map {
-  height: 100%;
-  width: 100%;
-}
-
 /* raw packet display, appwide */
 .mono {
   font-family: monospace;

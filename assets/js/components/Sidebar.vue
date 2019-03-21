@@ -11,10 +11,8 @@ export default {
 
 <style scoped>
 .sidebar {
-  height: 100%;
   padding: 1em;
   margin: 0.5em;
-  overflow: scroll;
 }
 </style>
 

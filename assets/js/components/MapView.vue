@@ -61,7 +61,6 @@
 .map-view {
   height: 100%;
   width: 100%;
-  margin-top: 0.75em;
 }
 </style>
 

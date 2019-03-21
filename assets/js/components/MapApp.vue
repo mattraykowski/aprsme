@@ -25,30 +25,51 @@ export default {
 
 <style scoped>
 .vue-app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  visibility: visible;
 }
 
-.vue-app > .columns {
-  height: 100vh;
+.main-content {
+  flex: 5;
+
+  display: flex;
+  flex-direction: row;
 }
-.vue-app > .columns > .column {
-  margin: 0;
-  padding: 0;
+
+div.sidebarz-nav {
+  flex: 1;
+  min-height: calc(100vh - 52px);
+  max-height: calc(100vh - 52px);
+  overflow: scroll;
+}
+
+section.content {
+  flex: 5;
 }
 </style>
 
 <template>
-  <section class="vue-app">
-    <div class="columns">
-      <div class="column is-3">
+  <div class="vue-app">
+    <div class="main-content">
+      <div class="sidebarz-nav">
         <sidebar :focusMarker="focusMarker"/>
       </div>
-      <div class="column is-9 map">
+      <section class="content">
         <map-view ref="mapView"/>
-      </div>
+      </section>
     </div>
-  </section>
+    <!-- div class="ui container">
+      <div v-if="zoomedOutTooFar" class="ui blue icon tiny message">
+        <i class="icon info circle"></i>
+        <div class="content">
+          <p>Zoom in to see live positions.</p>
+        </div>
+      </div>
+    </div-->
+    <!-- container -->
+  </div>
 </template>

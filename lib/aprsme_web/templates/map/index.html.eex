@@ -1,9 +1,1 @@
-<div class="ui sidebar vertical menu" id="map-sidebar">
-  <div id="app">
-  </div>
-</div>
-
-<div class="pusher">
-  <div id="map">
-  </div>
-</div>
+<div id="app"></div>
