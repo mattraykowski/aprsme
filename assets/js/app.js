@@ -12,6 +12,7 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import VueRouter from 'vue-router';
 
 // Import local files
 //
@@ -19,6 +20,7 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 import socket from "./socket";
 import AprsService from './services/aprs_service';
+import router from './router';
 import MapApp from './components/MapApp';
 import Packet from "./packet";
 import symbols from "./symbols";
@@ -68,11 +70,13 @@ import { store } from './store';
 
   const aprsService = new AprsService(socket, store);
   Vue.prototype.$aprsService = aprsService;
+  
 
   const app = new Vue({
     el: '#app',
     data: {},
     store,
+    router,
     components: {
       MapApp,
     },

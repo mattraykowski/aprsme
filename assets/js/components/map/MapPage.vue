@@ -77,7 +77,7 @@ import {
 } from "vue2-leaflet";
 import LMarkerCluster from "vue2-leaflet-markercluster";
 import LEasyButton from "./LeafletEasyButton.vue";
-import mapboxAccessToken from "../mapboxAccessToken";
+import mapboxAccessToken from "./mapboxAccessToken";
 const MAX_ZOOM = 20;
 
 export default {
