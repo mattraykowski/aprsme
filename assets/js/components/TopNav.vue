@@ -20,7 +20,6 @@
     <div class="navbar-menu top-nav" :class="{ 'is-active': topNavOpen }">
       <div class="navbar-start">
         <router-link class="navbar-item" to="/">Home</router-link>
-
         <a class="navbar-item">Search</a>
       </div>
 
@@ -51,8 +50,8 @@
 
 <style scoped>
 .top-nav {
-  position: fixed;
-  width: 100%;
+  /* position: fixed; */
+  /* width: 100%; */
 }
 </style>
 
